@@ -8,7 +8,7 @@ public class CashiersGreedy {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		int[] coinage = {1, 5, 10, 25, 100, 500, 1000, 2000}; //can be modified
+		int[] coinage = {1, 5, 10, 25, 100, 5000, 1000, 2000}; //can be modified
 		int cents = 123456; 				 //can be modified
 		
 		int[] change = getChangeCashiers(cents, coinage);
@@ -32,9 +32,15 @@ public class CashiersGreedy {
 		int remainder = cents;
 		
 		while(coin >= 0){
-			change[coin] = remainder / coinage[coin];
-			remainder = remainder % coinage[coin];
-			coin --;
+			try{
+				change[coin] = remainder / coinage[coin];
+				remainder = remainder % coinage[coin];
+			}catch(ArithmeticException ae){
+				//in case of divide or modulo by zero, loop next
+			} 
+			finally{
+				coin --;
+			}
 		}
 		
 		return change;

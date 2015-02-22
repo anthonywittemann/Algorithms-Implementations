@@ -32,9 +32,15 @@ public class CashiersGreedy {
 		int remainder = cents;
 		
 		while(coin >= 0){
-			change[coin] = remainder / coinage[coin];
-			remainder = remainder % coinage[coin];
-			coin --;
+			try{
+				change[coin] = remainder / coinage[coin];
+				remainder = remainder % coinage[coin];
+			}catch(ArithmeticException ae){
+				//in case of divide or modulo by zero, loop next
+			} 
+			finally{
+				coin --;
+			}
 		}
 		
 		return change;
