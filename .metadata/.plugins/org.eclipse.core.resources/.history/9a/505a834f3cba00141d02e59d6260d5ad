@@ -1,0 +1,45 @@
+package hw2;
+
+//The following implementation generalizes for any coinage that works for greedy
+
+public class CashiersGreedy {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		int[] coinage = {1, 7, 35, 140};
+		int[] change = getChangeCashiers(2000, coinage);
+		for(int i = change.length - 1; i > 0; i--){
+			System.out.println("Coin: " + coinage[i] + " * " + change[i]);
+		}
+	}
+	
+	/**
+	 * runs in O(1) time where the constant varies 
+	 * based on the number of coins in a given coinage
+	 * @param cents
+	 * @param coinage
+	 * @return the change with the number of each coin of the given coinage
+	 */
+	public static int[] getChangeCashiers(int cents, int[] coinage){
+		int coin = coinage.length - 1; //number of different coins in coinage
+		int[] change = new int[coin + 1];
+		int remainder = 1; //used to 
+		
+		while(coin > 0){
+			try{
+				remainder = cents % remainder;
+				change[coin] = remainder / coinage[coin];
+			}catch(ArithmeticException ae){
+				
+			}
+			finally{
+				coin --;
+			}
+		}
+		
+		return change;
+	}
+
+}
