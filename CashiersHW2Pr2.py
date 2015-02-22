@@ -2,18 +2,22 @@
 # HW 2 Pr 2 Cashier's Algo
 
 def main():
-    cashier(2000)
+    coinage = [1, 5, 10, 25, 100, 500, 1000, 2000] #can be modified
+    cents = 123456 				   #can be modified
+    change = cashier(cents, coinage)
+    for c in range(len(change)):
+        print("Number of",coinage[c], "coins:",change[c])
 
-def cashier(nCents):
-    coinsInAscendingValue = [1,7,35,140]
-    selectedCoins = [0,0,0,0]
-    while nCents > 0 and currentCoin > -1:
-        currentCoin = len(coinsInAscendingValue) - 1
-        selectedCoins[currentCoin] = nCents // coinsInAscendingValue[currentCoin]
-        nCents -= (selectedCoins[currentCoin] * coinsInAscendingValue[currentCoin])
-        currentCoin -= 1
-    for c in selectedCoins:
-        print(c)
+def cashier(cents, coinage):
+    coin = len(coinage) - 1
+    change = list(range(coin + 1))
+    remainder = cents
+    
+    while coin >= 0:
+        change[coin] = remainder // coinage[coin]
+        remainder = remainder % coinage[coin]
+        coin -= 1
 
+    return change
 
 main()
